@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Document</title>
+</head>
+<body>
+    <h2 style="text-align:center; margin-bottom:20px;">Expense List</h2>
+    <div class="container">
+        <table id="customers" border="1">
+            <thead>
+                <th>expense_id</th>
+                <th>date</th>
+                <th>category</th>
+                <th>amount</th>
+                <th>description</th>
+                <th>payment_mode</th>
+                <th>merchant_name</th>
+                <th>location</th>
+                <th>notes</th>
+                <th>created_by</th>
+            </thead>
+            {% for i in expense %}
+            <tr>
+                <td>{{ i.expense_id }}</td>
+                <td>{{ i.date }}</td>
+                <td>{{ i.category }}</td>
+                <td>{{ i.amount }}</td>
+                <td>{{ i.description }}</td>
+                <td>{{ i.payment_mode }}</td>
+                <td>{{ i.merchant_name }}</td>
+                <td>{{ i.location }}</td>
+                <td>{{ i.notes }}</td>
+                <td>{{ i.created_by }}</td>
+                <td>
+                    <a href="{% url 'update_expense' i.id %}"><button id="up">Update</button></a>
+                </td>
+                <td>
+                    <a href="{% url 'delete_expense' i.id %}"><button  id="del">Delete</button></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <a href="{% url 'add' %}"><button id="new3">add expense</button></a>
+</body>
+</html>

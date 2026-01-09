@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>update</title>
+</head>
+<body>
+    <div>
+        <h1>update Expense</h1><br><br>
+            <form action="{% url 'update_expense' expense.id %}" method="post">
+                {% csrf_token %}
+                <label for="">expense id</label>
+                <input type="text" name="expense_id" value="{{ expense.expense_id }}"> <br><br>
+                <label for="">date</label>
+                <input type="date" name="date" value="{{ expense.date|date:'Y-m-d' }}"> <br><br>
+                <label for="">category</label>
+                <input type="text" name="category" value="{{ expen.category }}"> <br><br>
+                <label for="">amount</label>
+                <input type="number" name="amount" value="{{ expense.amount }}"> <br><br>
+                <label for="">description</label>
+                <textarea name="description" id="">{{ expense.description }}</textarea> <br><br>
+                <label for="">payment_mode</label>
+                <input type="text" name="payment_mode" value="{{ expense.payment_mode }}"> <br><br>
+                <label for="">merchant_name</label>
+                <input type="text" name="merchant_name" value="{{ expense.merchant_name }}"> <br><br>
+                <label for="">location</label>
+                <input type="text" name="location" value="{{ expense.location }}"> <br><br>
+                <label for="">notes </label>    
+                <textarea name="notes" >{{ expense.notes }}</textarea> <br><br>
+                <label for="">created_by</label>
+                <input type="text" name="created_by" value="{{ expense.created_by }}"> <br><br>
+                <button type="submit" id="update">Update Expense</button>
+            </form>
+    </div>
+</body>
+</html>
