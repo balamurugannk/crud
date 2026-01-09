@@ -1,4 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
+from openpyxl import Workbook
+from django.http import HttpResponse
 from .models import *
 
 def index(request):
@@ -70,3 +72,45 @@ def delete_expense(request,id):
     expen=Expense.objects.get(id=id)
     expen.delete()
     return redirect('/')
+
+def export_expenses_excel(request):
+    # Create workbook and sheet
+    wb = Workbook()
+    ws = wb.active
+    ws.title = "Expenses"
+
+    # Header row
+    ws.append([
+        "Expense ID",
+        "Date",
+        "Category",
+        "Amount",
+        "Description",
+        "Payment Mode",
+        "Merchant Name",
+        "Location",
+        "Notes",
+        "Created By"
+    ])
+    for e in Expense.objects.all():
+        ws.append([
+            e.expense_id,
+            e.date.strftime("%d-%m-%Y"),
+            e.category,
+            float(e.amount),
+            e.description,
+            e.payment_mode,
+            e.merchant_name,
+            e.location,
+            e.notes,
+            e.created_by
+        ])
+
+    # Response as Excel file
+    response = HttpResponse(
+        content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    )
+    response["Content-Disposition"] = 'attachment; filename="expense_report.xlsx"'
+
+    wb.save(response)
+    return response
