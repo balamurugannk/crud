@@ -9,7 +9,7 @@
 <body>
     <div>
         <h1>update Expense</h1><br><br>
-            <form action="{% url 'update_expense' expense.id %}" method="post">
+            <form action="{%url 'update_expense' expense.id %}" method="post">
                 {% csrf_token %}
                 <label for="">expense id</label>
                 <input type="text" name="expense_id" value="{{ expense.expense_id }}"> <br><br>

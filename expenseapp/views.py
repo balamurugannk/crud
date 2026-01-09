@@ -11,6 +11,7 @@ def index(request):
 def add(request):
 
     return render(request, 'expenseapp/add.html')
+
 def add_expense(request):
     if request.method == "POST":
         expense_id = request.POST['expense_id']
@@ -42,30 +43,27 @@ def add_expense(request):
     return render(request, 'expenseapp/add.html')
 
 
-
-def update(request,id):
-
-    expen=Expense.objects.get(id=id)
-    return render(request, 'expenseapp/update.html', {'expen': expen })
-
-
+# UPDATE VIEW
 def update_expense(request, id):
-    expen = get_object_or_404(Expense, pk=id)
+    expense = get_object_or_404(Expense, id=id)
 
     if request.method == "POST":
-        expen.date = request.POST.get('date')
-        expen.category = request.POST.get('category')
-        expen.amount = request.POST.get('amount')
-        expen.description = request.POST.get('description')
-        expen.payment_mode = request.POST.get('payment_mode')
-        expen.merchant_name = request.POST.get('merchant_name')
-        expen.location = request.POST.get('location')
-        expen.notes = request.POST.get('notes')
-        expen.created_by = request.POST.get('created_by')
-        expen.save()
+        expense.expense_id = request.POST.get('expense_id')
+        expense.date = request.POST.get('date')
+        expense.category = request.POST.get('category')
+        expense.amount = request.POST.get('amount')
+        expense.description = request.POST.get('description')
+        expense.payment_mode = request.POST.get('payment_mode')
+        expense.merchant_name = request.POST.get('merchant_name')
+        expense.location = request.POST.get('location')
+        expense.notes = request.POST.get('notes')
+        expense.created_by = request.POST.get('created_by')
+
+        expense.save()
         return redirect('/')
 
-    return render(request, 'expenseapp/update.html', {'expense': expen})
+    return render(request, 'expenseapp/update.html', {'expense': expense})
+
 
 
 def delete_expense(request,id):
